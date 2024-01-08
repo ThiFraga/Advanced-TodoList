@@ -1,11 +1,29 @@
+import { Meteor } from 'meteor/meteor';
 import React from 'react';
-import { Hello } from './Hello.jsx';
-import { Info } from './Info.jsx';
+import { useTracker } from 'meteor/react-meteor-data';
+import { LoginForms } from './LoginForms';
 
-export const App = () => (
-  <div>
-    <h1>Welcome to Meteor!</h1>
-    <Hello/>
-    <Info/>
-  </div>
-);
+const handlelogout = () =>  Meteor.logout();
+
+
+export const App = () => {
+  const user = useTracker(() => Meteor.user());
+
+
+  return (
+    <div>
+      {user ? 
+        <div>
+          <h1>
+            A tela inicial
+          </h1>
+          <button type='button' onClick={handlelogout}>Logout</button>
+        </div>
+        :
+        <LoginForms />
+      }
+
+      
+    </div>
+  );
+}
