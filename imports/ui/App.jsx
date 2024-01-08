@@ -2,28 +2,18 @@ import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { useTracker } from 'meteor/react-meteor-data';
 import { LoginForms } from './LoginForms';
+import Menu from './components/Menu';
 
 const handlelogout = () =>  Meteor.logout();
 
 
-export const App = () => {
+export default function App() {
   const user = useTracker(() => Meteor.user());
 
 
   return (
     <div>
-      {user ? 
-        <div>
-          <h1>
-            A tela inicial
-          </h1>
-          <button type='button' onClick={handlelogout}>Logout</button>
-        </div>
-        :
-        <LoginForms />
-      }
-
-      
+      <Menu />
     </div>
   );
 }
