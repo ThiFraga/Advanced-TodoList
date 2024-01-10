@@ -1,28 +1,30 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import {
-  createBrowserRouter,
-  RouterProvider,
-  createRoutesFromElements,
-  Route
-} from "react-router-dom";
 import { Meteor } from 'meteor/meteor';
-import App from '/imports/ui/App';
 
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route path="/" element={<App />}>
-      
-    </Route>
-  )
-);
+import { createTheme, ThemeProvider } from '@mui/material';
+import Routes from './routes';
+
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main:'#DB6A00'
+    },
+    secondary: {
+      main: '#000000'
+    }
+  },
+});
 
 Meteor.startup(() => {
   const container = document.getElementById('react-target');
   const root = createRoot(container);
   root.render(
     <React.StrictMode>
-      <RouterProvider router={router} />
+      <ThemeProvider theme={theme}>
+        <Routes />
+      </ThemeProvider>
     </React.StrictMode>
     );
 });

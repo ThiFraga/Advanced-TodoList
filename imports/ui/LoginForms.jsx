@@ -1,10 +1,20 @@
 import { Meteor } from 'meteor/meteor';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useTracker } from 'meteor/react-meteor-data';
+import { useNavigate } from "react-router-dom";
 // import { LoginWithGithub } from './LoginWithGithub';
 
 export const LoginForms = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  const user = useTracker(() => Meteor.user());
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+      if (user) return navigate("/");
+      return;
+  },[user]);
 
   const submit = e => {
     e.preventDefault();

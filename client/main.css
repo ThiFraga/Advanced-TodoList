@@ -85,10 +85,35 @@ body {
   
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  gap: 5%;
 
+}
+
+.menuBar > div {
+  display: flex;
+  flex-direction: row;
+
+  align-items: center;
 }
 
 .menuBar > div > h1 {
   font-family: 'Lemon', serif;
   font-size: 40px;
+}
+
+
+
+.page {
+  width: 100%;
+  padding: 20px 10%;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.page > div {
+  width: 100%;
 }
