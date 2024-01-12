@@ -1,56 +1,32 @@
-import { Meteor } from 'meteor/meteor';
-import React, { useState, useEffect } from 'react';
-import { useTracker } from 'meteor/react-meteor-data';
-import { useNavigate } from "react-router-dom";
-// import { LoginWithGithub } from './LoginWithGithub';
+import { Link, TextField, Button} from '@mui/material';
+import React, { useState } from 'react';
 
-export const LoginForms = () => {
+export const LoginForms = ({ setPage }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const user = useTracker(() => Meteor.user());
-  const navigate = useNavigate();
-  
-  useEffect(() => {
-      if (user) return navigate("/");
-      return;
-  },[user]);
-
-  const submit = e => {
+  const submit = async(e) => {
     e.preventDefault();
 
     Meteor.loginWithPassword(username, password);
   };
 
   return (
-    <form onSubmit={submit} className="login-form">
-        <div>
-            <label htmlFor="username">Username</label>
+    <div className='page'>
+        <form onSubmit={submit} className="login-form">
 
-            <input
-            type="text"
-            placeholder="Username"
-            name="username"
-            required
-            onChange={(e) => setUsername(e.target.value)}
-            />
-        </div>
+          <TextField id='username' name='username' type='text' label='Username' variant='outlined' color='primary' required onChange={(e) => setUsername(e.target.value)}/>
 
-        <div>
-            <label htmlFor="password">Password</label>
+          <TextField id='password' name='password' type='password' label='password' variant='outlined' color='primary' required onChange={(e) => setPassword(e.target.value)}/>
 
-            <input
-            type="password"
-            placeholder="Password"
-            name="password"
-            required
-            onChange={(e) => setPassword(e.target.value)}
-            />
-        </div>
-
-        <div>
-            <button type="submit">Log In</button>
-        </div>
-    </form>
+          <div>
+              <Button type="submit" color='primary' className='submitButton'>Entrar</Button>
+          </div>
+      </form>
+      <div>
+        <Link onClick={setPage} color='secondary.light' className='loginLink'>Criar uma conta!</Link>
+      </div>
+    </div>
+    
   );
 };

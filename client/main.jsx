@@ -9,10 +9,15 @@ import Routes from './routes';
 const theme = createTheme({
   palette: {
     primary: {
-      main:'#DB6A00'
+      main:'#DB6A00',
+      dark: '#DB4400',
+      light: '#DB8B00',
+      contrastText: '#fff'
     },
     secondary: {
-      main: '#000000'
+      main: '#000000',
+      light: '#808080',
+      contrastText: '#ffffff'
     }
   },
 });

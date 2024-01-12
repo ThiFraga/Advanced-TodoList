@@ -3,6 +3,7 @@ import React from 'react';
 import { useTracker } from 'meteor/react-meteor-data';
 import Menu from './components/Menu';
 import { Outlet, useNavigation } from 'react-router-dom';
+import Login from './Login';
 
 const handlelogout = () =>  Meteor.logout();
 
@@ -13,9 +14,10 @@ export default function App() {
 
   return (
     <div>
-      <Menu user={user} />
+      <Menu />
       {navigation.state === "loading" && <GlobalSpinner />}
-      <Outlet/>
+      {user ? <Outlet /> : <Login />}
+      
     </div>
   );
 }
