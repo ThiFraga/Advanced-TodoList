@@ -31,11 +31,15 @@ export default function MyTasks() {
         return  {tasks};
     });
 
+    const handleRemoveTask = (id) => {
+        Meteor.call('tasks.remove', id);
+    }
+
     return (
         <div className="page">
             <div className="container">
                 <h2>Adicionar Tarefa:</h2>
-                <TaskForms />
+                <TaskForms user={user}/>
             </div>
             <div className="container">
                 <h2>Minhas tarefas</h2>
@@ -62,8 +66,8 @@ export default function MyTasks() {
                                     <Edit />
                                 </ListItemIcon>
                             </ListItemButton>
-                            <ListItemButton >
-                                <ListItemIcon>
+                            <ListItemButton onClick={() => handleRemoveTask(task._id)} >
+                                <ListItemIcon >
                                     <Delete />
                                 </ListItemIcon>
                             </ListItemButton>

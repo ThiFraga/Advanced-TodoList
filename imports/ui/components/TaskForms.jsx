@@ -19,7 +19,7 @@ export default function TaskForms({ changeData, handleSubmit, user, task, editSt
                     readOnly: editState,
                 }} onChange={(e) => changeData(e.target.name, e.target.value)}/>
 
-                <TextField name='username' value={task?.username} type='text' label='Criado por:'    variant='standard' color='primary'  InputProps={{
+                <TextField name='username' value={task ? task.username : user.username} type='text' label='Criado por:'    variant='standard' color='primary'  InputProps={{
                     readOnly: editState,
                 }}/>
 
