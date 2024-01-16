@@ -1,46 +1,34 @@
 import React from "react";
+import { useTracker } from 'meteor/react-meteor-data';
+import { Meteor } from 'meteor/meteor';
+import { TasksCollection } from "../db/TasksCollection";
 import { List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import { Assignment } from "@mui/icons-material";
 
-const tasks = [
-    {
-        id: 0,
-        task: "Tarefa 0",
-        description: 'Descrição aqui ó',
-        username: "Thi",
-        createdAt: '10/01/2024'
-    },
-    {
-        id: 1,
-        task: "Tarefa 1",
-        description: 'Descrição aqui ó',
-        username: "Thi",
-        createdAt: '10/01/2024'
-    },
-    {
-        id: 2,
-        task: "Tarefa 2",
-        description: 'Descrição aqui ó',
-        username: "Thi",
-        createdAt: '10/01/2024'
-    },
-    {
-        id: 3,
-        task: "Tarefa 3",
-        description: 'Descrição aqui ó',
-        username: "Thi",
-        createdAt: '10/01/2024'
-    },
-];
-
 export default function Todolist() {
 
+    const {tasks, isLoading}  = useTracker(() => {
+        const handler = Meteor.subscribe('all-tasks');
+
+        if (!handler.ready()) {
+            return { tasks: [], isLoading: true };
+        }
+        const tasks = TasksCollection.find(
+            {},
+            {
+              sort: { createdAt: -1 },
+            }
+          ).fetch();
+
+        return  { tasks };
+    });
     return (
         <div className="page">
             <div>
-                <List sx={{width: '100%', maxWidth: '500px'}}>
+                {isLoading && <div className="loading">Carregando...</div>}
+                <List sx={{width: '100%', maxWidth: '600px'}}>
                     {tasks.map((task)=>(
-                        <ListItem key={task.id} disablePadding sx={{borderBottom: '1px solid grey'}}>
+                        <ListItem key={task._id} disablePadding sx={{borderBottom: '1px solid grey'}}>
                             <ListItemIcon >
                                 <Assignment />
                             </ListItemIcon>

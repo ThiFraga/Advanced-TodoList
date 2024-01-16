@@ -10,6 +10,7 @@ import Home from '../imports/ui/Home';
 import Profile from '../imports/ui/Profile';
 import Todolist from '../imports/ui/TodoList';
 import MyTasks from "../imports/ui/MyTasks";
+import Tasks from "../imports/ui/Task";
 
   
 const router = createBrowserRouter(
@@ -17,8 +18,9 @@ const router = createBrowserRouter(
         <Route path="/" element={<App />}>
             <Route index element={<Home />} />
             <Route path='perfil' element={<Profile />} />
-            <Route path='todo-list' element={<Todolist />} />
-            <Route path="my-tasks" element={<MyTasks />} />
+            <Route path='tarefas' element={<Todolist />} />
+            <Route path="minhas-tarefas" element={<MyTasks />} />
+            <Route path="editar-tarefa/:taskId" element={<Tasks />} />
         </Route>
     )
 );

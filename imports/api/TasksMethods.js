@@ -3,15 +3,14 @@ import { check } from 'meteor/check';
 import { TasksCollection } from '../db/TasksCollection';
  
 Meteor.methods({
-  'tasks.insert'(text) {
-    check(text, String);
+  'tasks.insert'(data) {
 
     if (!this.userId) {
       throw new Meteor.Error('Not authorized.');
     }
 
     TasksCollection.insert({
-      text,
+      ...data,
       createdAt: new Date,
       userId: this.userId,
     })
@@ -53,4 +52,12 @@ Meteor.methods({
       },
     });
   },
+
+  'task.getTaskById'(taskId) {
+    check(taskId,String);
+    
+    if (!this.userId) {
+      throw new Meteor.Error('Not authorized.');
+    }
+  }
 });

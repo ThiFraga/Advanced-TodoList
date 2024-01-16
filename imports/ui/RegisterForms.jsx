@@ -1,6 +1,6 @@
 import { Link, TextField, Button, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import React, { useState } from 'react';
-import { addNewUser } from '../api/ProfilesMethods';
+
 
 const emptyProps = {
       error: false,
@@ -39,15 +39,16 @@ export const RegisterForms = ({ setPage }) => {
   const submit = e => {
     e.preventDefault();
 
-    if(confirmProps == emptyProps) return;
-    addNewUser(data);
+    if(confirmProps.error) return;
 
-    
+    Meteor.call('profiles.insert', data);
+
+    Meteor.loginWithPassword(data.username, data.password);
   };
 
   return (
     <div className='page'>
-        <form onSubmit={submit} className="login-form">
+        <form onSubmit={submit} className="form">
 
           <TextField id='name' name='name' type='text' sx={{width: '300px'}} label='Nome completo' variant='outlined' color='primary' required onChange={(e) => changeData(e.target.name, e.target.value)}/>
 

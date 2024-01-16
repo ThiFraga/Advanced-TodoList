@@ -13,7 +13,7 @@ export const LoginForms = ({ setPage }) => {
 
   return (
     <div className='page'>
-        <form onSubmit={submit} className="login-form">
+        <form onSubmit={submit} className="form">
 
           <TextField id='username' name='username' type='text' label='Username' variant='outlined' color='primary' required onChange={(e) => setUsername(e.target.value)}/>
 

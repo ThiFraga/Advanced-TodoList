@@ -1,45 +1,48 @@
 import { Delete, Edit, Assignment } from "@mui/icons-material";
 import { List, ListItem, ListItemText, ListItemButton, ListItemIcon } from "@mui/material";
+import TaskForms from "./components/TaskForms";
+import { useTracker } from 'meteor/react-meteor-data';
 import React from "react";
-
-const tasks = [
-    {
-        id: 0,
-        task: "Tarefa 0",
-        description: 'Descrição aqui ó',
-        username: "Thi",
-        createdAt: '10/01/2024'
-    },
-    {
-        id: 1,
-        task: "Tarefa 1",
-        description: 'Descrição aqui ó',
-        username: "Thi",
-        createdAt: '10/01/2024'
-    },
-    {
-        id: 2,
-        task: "Tarefa 2",
-        description: 'Descrição aqui ó',
-        username: "Thi",
-        createdAt: '10/01/2024'
-    },
-    {
-        id: 3,
-        task: "Tarefa 3",
-        description: 'Descrição aqui ó',
-        username: "Thi",
-        createdAt: '10/01/2024'
-    },
-];
+import { TasksCollection } from "../db/TasksCollection";
+import { Meteor } from 'meteor/meteor';
+import { useNavigate } from "react-router-dom";
 
 export default function MyTasks() {
+    const user = useTracker(() => Meteor.user());
+
+    const navigate = useNavigate();
+
+    const userFilter = user ? { userId: user._id } : {};
+    
+
+    const {tasks, isLoading}  = useTracker(() => {
+        const handler = Meteor.subscribe('tasks');
+
+        if (!handler.ready()) {
+            return { tasks: [], isLoading: true };
+        }
+        const tasks = TasksCollection.find(
+            userFilter,
+            {
+              sort: { createdAt: -1 },
+            }
+          ).fetch();
+
+        return  {tasks};
+    });
+
     return (
         <div className="page">
-            <div>
-                <List >
-                    {tasks.map((task)=>(
-                        <ListItem key={task.id} disablePadding sx={{borderBottom: '1px solid grey'}}>
+            <div className="container">
+                <h2>Adicionar Tarefa:</h2>
+                <TaskForms />
+            </div>
+            <div className="container">
+                <h2>Minhas tarefas</h2>
+                {isLoading && <div className="loading">Carregando...</div>}
+                <List>
+                    { tasks.map((task)=>(
+                        <ListItem key={task._id} disablePadding sx={{borderBottom: '1px solid grey'}}>
                             <ListItemButton >
                                 <ListItemIcon >
                                     <Assignment />
@@ -54,7 +57,7 @@ export default function MyTasks() {
                                 width: '100%'
                                 }} 
                             />
-                            <ListItemButton >
+                            <ListItemButton onClick={() => navigate(`/editar-tarefa/${task._id}`)}>
                                 <ListItemIcon >
                                     <Edit />
                                 </ListItemIcon>

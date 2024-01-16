@@ -1,7 +1,8 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Meteor } from 'meteor/meteor';
-
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { createTheme, ThemeProvider } from '@mui/material';
 import Routes from './routes';
 
@@ -28,7 +29,10 @@ Meteor.startup(() => {
   root.render(
     <React.StrictMode>
       <ThemeProvider theme={theme}>
-        <Routes />
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <Routes />
+        </LocalizationProvider>
+        
       </ThemeProvider>
     </React.StrictMode>
     );
