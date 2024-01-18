@@ -125,3 +125,14 @@ body {
 
   font-weight: bold;
 }
+
+.situation-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  gap: 20px;
+  flex-wrap: wrap;
+}

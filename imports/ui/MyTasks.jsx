@@ -1,11 +1,12 @@
-import { Delete, Edit, Assignment } from "@mui/icons-material";
-import { List, ListItem, ListItemText, ListItemButton, ListItemIcon } from "@mui/material";
-import TaskForms from "./components/TaskForms";
+import { Delete, Edit, Assignment, AddTask } from "@mui/icons-material";
+import { List, ListItem, ListItemText, ListItemButton, ListItemIcon, Button } from "@mui/material";
 import { useTracker } from 'meteor/react-meteor-data';
 import React from "react";
 import { TasksCollection } from "../db/TasksCollection";
 import { Meteor } from 'meteor/meteor';
 import { useNavigate } from "react-router-dom";
+
+
 
 export default function MyTasks() {
     const user = useTracker(() => Meteor.user());
@@ -35,11 +36,12 @@ export default function MyTasks() {
         Meteor.call('tasks.remove', id);
     }
 
+
     return (
         <div className="page">
             <div className="container">
-                <h2>Adicionar Tarefa:</h2>
-                <TaskForms user={user}/>
+                <Button variant="contained" endIcon={<AddTask />}  onClick={() => navigate("/criar-tarefa")} >Nova Tarefa</Button>
+
             </div>
             <div className="container">
                 <h2>Minhas tarefas</h2>

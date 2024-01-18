@@ -6,7 +6,9 @@ Meteor.publish('tasks', function publishTasks() {
 });
 
 Meteor.publish('all-tasks', function publishTasks() {
-  return TasksCollection.find({});
+  return TasksCollection.find({
+    isPersonal: false,
+  });
 });
 
 Meteor.publish('get-task', function publishTask(taskId) {
