@@ -1,14 +1,17 @@
 import { Link, TextField, Button} from '@mui/material';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const LoginForms = ({ setPage }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const submit = async(e) => {
     e.preventDefault();
 
     Meteor.loginWithPassword(username, password);
+    navigate("/");
   };
 
   return (

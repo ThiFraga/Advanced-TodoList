@@ -11,7 +11,6 @@ const handlelogout = () =>  Meteor.logout();
 export default function App() {
   const user = useTracker(() => Meteor.user());
   const navigation = useNavigation();
-
   return (
     <div>
       <Menu />
