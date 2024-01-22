@@ -39,6 +39,7 @@ export default function MyTasks() {
 
     return (
         <div className="page">
+          <Button variant="outlined" color="primary" onClick={() => navigate('/tarefas')} >Ver todas as tarefas </Button>
             <div className="container">
                 <Button variant="contained" endIcon={<AddTask />}  onClick={() => navigate("/criar-tarefa")} >Nova Tarefa</Button>
 

@@ -38,8 +38,7 @@ export default function Profile() {
     return (
         <div className="page">
             <div style={{display: "flex", flexDirection: "row", gap: "10px", justifyContent: "center", alignItems: "center"}}>
-               <h1>Essa é o perfil</h1>
-                <button type="button" onClick={logout} >Deslogar-se</button> 
+               <h1>Essa é o seu perfil</h1>
             </div>
             <Button type="button" variant="contained" onClick={readMode}>{readState ? 'Habilitar Edição' : 'Modo Visualização'}</Button>
             <ProfileForms readState={readState} handleSubmit={handleSubmit} profile={profile}/>

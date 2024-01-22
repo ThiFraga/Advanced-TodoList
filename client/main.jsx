@@ -19,6 +19,9 @@ const theme = createTheme({
       main: '#000000',
       light: '#808080',
       contrastText: '#ffffff'
+    },
+    drawerIcon: {
+      main: '#ffffff',
     }
   },
 });

@@ -2,6 +2,7 @@ import { Accounts } from 'meteor/accounts-base';
 
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
+import { TasksCollection } from '../db/TasksCollection';
 
 
  
@@ -21,6 +22,8 @@ Meteor.methods({
     check(userId, String);
 
     if(this.userId != userId || !this.userId) throw Meteor.Error("Not authorized");
+
+    TasksCollection.remove({ userId:userId });
 
     Meteor.users.remove(userId);
   },
