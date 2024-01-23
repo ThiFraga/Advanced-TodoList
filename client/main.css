@@ -168,6 +168,10 @@ body {
   padding-top: 20px;
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 320px) {
+    width: 250px;
+  }
 }
 
 .close-drawer-btn {
@@ -175,4 +179,44 @@ body {
   align-self: flex-end;
   flex-direction: column;
   color: #fff;
+}
+
+.card {
+  width: 200px;
+  height: 200px;
+  border-radius: 5px;
+
+  display: flex;
+}
+
+.card-text {
+  font-size: 18px;
+  font-weight: 600;
+
+  margin: 0;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.card-number {
+  font-size: 50px;
+  font-weight: 700;
+
+  margin: 0;
+}
+
+.container-cards {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+
+  width: 100%;
+  align-items: center;
 }

@@ -11,6 +11,11 @@ Meteor.publish('all-tasks', function publishTasks() {
   });
 });
 
+Meteor.publish('number-tasks', function publishTasks(filter) {
+
+  return TasksCollection.find();
+})
+
 Meteor.publish('get-task', function publishTask(taskId) {
   return TasksCollection.find({ userId: this.userId, _id: taskId }, { limit: 1 });
 });
