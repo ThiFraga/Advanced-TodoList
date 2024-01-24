@@ -10,11 +10,6 @@ export default function DrawerMenu({
   const navigate = useNavigate();
 
   const handleClick = (option) => {
-    if ( option === 'logout' ) {
-      Meteor.logout();
-      closeDrawer();
-      return ;
-    }
     navigate(`/${option}`);
     closeDrawer();
   }
@@ -44,8 +39,11 @@ export default function DrawerMenu({
         </ListItem>
         <Divider light/>
         <ListItem >
-          <ListItemButton >
-            <ListItemIcon onClick={() => handleClick("logout")}>
+          <ListItemButton onClick={() => {
+              Meteor.logout(),
+              closeDrawer();
+            }}>
+            <ListItemIcon >
               <Logout color="drawerIcon" />
             </ListItemIcon>
             <ListItemText primary="Sair" sx={{fontSize: '22px', fontWeight: '500'}} disableTypography />

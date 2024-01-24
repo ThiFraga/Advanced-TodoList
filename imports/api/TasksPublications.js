@@ -5,15 +5,41 @@ Meteor.publish('tasks', function publishTasks() {
   return TasksCollection.find({ userId: this.userId });
 });
 
-Meteor.publish('all-tasks', function publishTasks() {
+Meteor.publish('all-tasks', function publishTasks(params) {
+  const options = ['Cadastrado', 'Em Andamento'];
+  const skipNumber = 4*(params.page - 1);
+
+  if(params.concluded) options.push('Concluida');
+  
+  const regex = new RegExp(params.filter,'i');
+
   return TasksCollection.find({
-    isPersonal: false,
+    $or: [
+      {$and: [{ isPersonal: true, }, { userId: this.userId, }]},
+      {isPersonal: false,}
+    ],
+    situation: {
+      $in: options,
+    },
+    task: {
+      $regex: regex,
+    }
+  },{
+    limit: 4,
+    skip: skipNumber,
+    sort: {
+      createdAt: -1,
+    }
   });
 });
 
-Meteor.publish('number-tasks', function publishTasks(filter) {
+Meteor.publish('tasks-to-count', function publishTasks() {
 
-  return TasksCollection.find();
+  return TasksCollection.find({},{
+    fields: {
+      situation: 1
+    }
+  });
 })
 
 Meteor.publish('get-task', function publishTask(taskId) {
